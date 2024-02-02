@@ -2,6 +2,9 @@
 
 This fork is to fix AdAway on older android versions but supports the latest Magisk systemless hosts method.
 
+You can install this version from:
+https://github.com/zeyus/AdAway/releases/download/v4.3.7/org.adaway.AdAway-v4.3.7.apk
+
 AdAway is an open source ad blocker for Android using the hosts file.
 
 For more information visit https://adaway.org
