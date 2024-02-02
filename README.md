@@ -55,6 +55,9 @@ If you are looking for translating the application in your language, [the transl
 
 ## Project status
 
+this fork of AdAway is developed by:
+* Zeyus ([@zeyus](https://github.com/zeyus)) - Fixer
+
 AdAway is actively developed by:
 * Bruce Bujon ([@PerfectSlayer](https://github.com/PerfectSlayer)) - Developer  
 [PayPal](https://paypal.me/BruceBUJON) | BTC: `1Cm1df83VCdpzBCSiqBRZzE5oMuLhkQdFF`
