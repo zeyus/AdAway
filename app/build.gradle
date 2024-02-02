@@ -6,15 +6,14 @@ def keyStoreDefined = project.hasProperty('signingStoreLocation') &&
         project.hasProperty('signingKeyPassword')
 
 android {
-    compileSdkVersion 28
-    buildToolsVersion '28.0.3'
+    compileSdk 33
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 28
-        ndkVersion '21.3.6528147'
+        targetSdkVersion 33
+        ndkVersion '21.4.7075529'
 
-        versionCode 40306   // Read 4.xx.yy to match version name
-        versionName '4.3.6'
+        versionCode 40307   // Read 4.xx.yy to match version name
+        versionName '4.3.7'
 
         vectorDrawables.useSupportLibrary = true
 
@@ -55,9 +54,6 @@ android {
     }
 
     // Do not abort build if lint finds errors
-    lintOptions {
-        abortOnError false
-    }
 
     buildTypes {
         debug {
@@ -70,6 +66,10 @@ android {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    namespace 'org.adaway'
+    lint {
+        abortOnError false
     }
 }
 

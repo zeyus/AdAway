@@ -2,7 +2,6 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 28
-    buildToolsVersion '28.0.3'
 
     defaultConfig {
         minSdkVersion 16
@@ -10,7 +9,8 @@ android {
     }
 
     // Do not abort build if lint finds errors
-    lintOptions {
+    namespace 'org.sufficientlysecure.rootcommands'
+    lint {
         abortOnError false
     }
 }
