@@ -17,6 +17,7 @@ import org.adaway.util.systemless.AbstractSystemlessMode;
 
 import androidx.preference.CheckBoxPreference;
 import androidx.preference.EditTextPreference;
+import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
@@ -184,6 +185,17 @@ public class PrefsFragment extends PreferenceFragmentCompat {
         super.onResume();
         // Check preference if systemless mode is enabled
         new SystemlessCheckTask().execute();
+        if (mSystemless == null || mCustomTarget == null) {
+            return;
+        }
+        // Get current context
+        Context context = this.getActivity();
+        if (mSystemless.isChecked() || PreferenceHelper.getApplyMethod(context).equals("customTarget")) {
+            ListPreference applyMethod = getPreferenceScreen().findPreference(getString(R.string.pref_apply_method_key));
+            applyMethod.setValue("customTarget");
+            mCustomTarget.setEnabled(true);
+            mCustomTarget.setText(PreferenceHelper.getCustomTarget(context));
+        }
     }
 
     /**

@@ -1,6 +1,6 @@
-# ![AdAway logo](https://raw.githubusercontent.com/AdAway/AdAway/master/app/src/main/res/mipmap-mdpi/icon.png) AdAway
+# ![AdAway logo](https://raw.githubusercontent.com/AdAway/AdAway/master/app/src/main/res/mipmap-mdpi/icon.png) AdAway fork for Android 4.1 to Android 13
 
-[![Build Status](https://travis-ci.com/AdAway/AdAway.svg?branch=master)](https://travis-ci.com/AdAway/AdAway) [![Sonarcloud Status](https://sonarcloud.io/api/project_badges/measure?project=org.adaway&metric=security_rating)](https://sonarcloud.io/dashboard?id=org.adaway) [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](blob/master/LICENSE)
+This fork is to fix AdAway on older android versions but supports the latest Magisk systemless hosts method.
 
 AdAway is an open source ad blocker for Android using the hosts file.
 

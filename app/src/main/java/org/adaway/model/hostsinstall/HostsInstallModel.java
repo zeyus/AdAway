@@ -512,6 +512,11 @@ public class HostsInstallModel extends Observable {
      * @return {@code true} if the hosts file target is the system one or symlink to target is installed, {@code false} otherwise.
      */
     private boolean checkHostsFileSymlink(Shell shell) {
+        boolean systemlessMode = PreferenceHelper.getSystemlessMode(this.context);
+        if (systemlessMode) {
+            // no need to symlink
+            return true;
+        }
         // Check installation according apply method
         String applyMethod = PreferenceHelper.getApplyMethod(this.context);
         switch (applyMethod) {
@@ -539,17 +544,18 @@ public class HostsInstallModel extends Observable {
             String applyMethod = PreferenceHelper.getApplyMethod(this.context);
             switch (applyMethod) {
                 case APPLY_TO_SYSTEM:
-                    ApplyUtils.copyHostsFile(this.context, Constants.ANDROID_SYSTEM_ETC_HOSTS, rootShell);
+                    ApplyUtils.copyHostsFile(this.context, Constants.ANDROID_SYSTEM_ETC_HOSTS, rootShell, false);
                     break;
                 case APPLY_TO_DATA_DATA:
-                    ApplyUtils.copyHostsFile(this.context, Constants.ANDROID_DATA_DATA_HOSTS, rootShell);
+                    ApplyUtils.copyHostsFile(this.context, Constants.ANDROID_DATA_DATA_HOSTS, rootShell, false);
                     break;
                 case APPLY_TO_DATA:
-                    ApplyUtils.copyHostsFile(this.context, Constants.ANDROID_DATA_HOSTS, rootShell);
+                    ApplyUtils.copyHostsFile(this.context, Constants.ANDROID_DATA_HOSTS, rootShell, false);
                     break;
                 case APPLY_TO_CUSTOM_TARGET:
                     String customTarget = PreferenceHelper.getCustomTarget(this.context);
-                    ApplyUtils.copyHostsFile(this.context, customTarget, rootShell);
+                    boolean systemlessMode = PreferenceHelper.getSystemlessMode(this.context);
+                    ApplyUtils.copyHostsFile(this.context, customTarget, rootShell, systemlessMode);
                     break;
                 default:
                     throw new IllegalStateException("The apply method " + applyMethod + " is not supported.");
@@ -725,6 +731,7 @@ public class HostsInstallModel extends Observable {
             // Get hosts file target based on preferences
             String applyMethod = PreferenceHelper.getApplyMethod(this.context);
             String target;
+            boolean systemlessMode = false;
             switch (applyMethod) {
                 case APPLY_TO_SYSTEM:
                     target = Constants.ANDROID_SYSTEM_ETC_HOSTS;
@@ -737,12 +744,13 @@ public class HostsInstallModel extends Observable {
                     break;
                 case APPLY_TO_CUSTOM_TARGET:
                     target = PreferenceHelper.getCustomTarget(this.context);
+                    systemlessMode = PreferenceHelper.getSystemlessMode(this.context);
                     break;
                 default:
                     throw new IllegalStateException("The apply method does not match any settings: " + applyMethod + ".");
             }
             // Copy generated hosts file to target location
-            ApplyUtils.copyHostsFile(this.context, target, shell);
+            ApplyUtils.copyHostsFile(this.context, target, shell, systemlessMode);
             // Delete generated hosts file after applying it
             this.context.deleteFile(Constants.HOSTS_FILENAME);
         } catch (Exception exception) {

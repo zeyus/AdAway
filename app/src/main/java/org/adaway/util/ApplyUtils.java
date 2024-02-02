@@ -121,7 +121,7 @@ public class ApplyUtils {
      *
      * @throws NotEnoughSpaceException RemountException CopyException
      */
-    public static void copyHostsFile(Context context, String target, Shell shell)
+    public static void copyHostsFile(Context context, String target, Shell shell, boolean systemlessMode)
             throws NotEnoughSpaceException, RemountException, CommandException {
         Log.i(Constants.TAG, "Copy hosts file with target: " + target);
         String privateDir = context.getFilesDir().getAbsolutePath();
@@ -154,7 +154,13 @@ public class ApplyUtils {
             if (!writable) {
                 // remount for write access
                 Log.i(Constants.TAG, "Remounting for RW...");
-                if (!tb.remount(target, "RW")) {
+                boolean result = false;
+                if (!systemlessMode) {
+                    result = tb.remount(target, "RW");
+                } else {
+                    result = tb.remount(Constants.ANDROID_VENDOR_PATH, "RW");
+                }
+                if (!result) {
                     throw new RemountException("Remounting as RW failed! Probably not a problem!");
                 }
             }
@@ -181,7 +187,13 @@ public class ApplyUtils {
             if (!writable) {
                 // after all remount target back as read only
                 Log.i(Constants.TAG, "Remounting back to RO...");
-                if (!tb.remount(target, "RO")) {
+                boolean result = false;
+                if (!systemlessMode) {
+                    result = tb.remount(target, "RO");
+                } else {
+                    result = tb.remount(Constants.ANDROID_VENDOR_PATH, "RO");
+                }
+                if (!result) {
                     Log.e(Constants.TAG, "Remounting as RO failed! Probably not a problem!");
                 }
             }
